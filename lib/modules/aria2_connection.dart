@@ -67,8 +67,14 @@ class Aria2Connection implements aria2_methods.Aria2Methods {
   }
 
   @override
-  Future<String> addUri(List<String> url) async {
-    return await _requestApi('aria2.addUri', [url]);
+  Future<String> addUri(List<String> url, {String? out}) async {
+    return await _requestApi('aria2.addUri', [
+      url,
+      {
+        out: out ?? '',
+        "check-certificate": "false",
+      }
+    ]);
   }
 
   @override
