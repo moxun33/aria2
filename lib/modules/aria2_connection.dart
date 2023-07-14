@@ -39,6 +39,7 @@ class Aria2Connection implements aria2_methods.Aria2Methods {
         "method": method,
         "params": params
       });
+
       // return res.data;
       var data = json.decode(res.data);
       return data["result"];
@@ -71,8 +72,8 @@ class Aria2Connection implements aria2_methods.Aria2Methods {
     return await _requestApi('aria2.addUri', [
       url,
       {
-        out: out ?? '',
-        "check-certificate": "false",
+        "out": out ?? '',
+        "check-certificate": false,
       }
     ]);
   }

@@ -6,11 +6,12 @@ import 'package:aria2/aria2.dart';
 
 void main() {
   test('test aria2', () async {
-    Aria2c aria2c =
-        Aria2c('https://XXXXX/jsonrpc', "http", "XXXX");
+    Aria2c aria2c = Aria2c('http://127.0.0.1:6800/jsonrpc', "http", "");
     var version = await aria2c.getVersion();
     print(version.toString());
-
+    final addUriRes = await aria2c.addUri(
+        ['http://pi.mo:5678/©️ v.0712.1955(B)/指南.md'],
+        out: '/©️ v.0712.1955(B)/指南.md');
     // var globalOptions = await aria2c.getGlobalOption();
     // print(globalOptions.toString());
     // var multi = await aria2c.multicall([Method("aria2.tellStopped",[0,100])]);
