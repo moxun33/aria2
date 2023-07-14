@@ -9,9 +9,11 @@ void main() {
     Aria2c aria2c = Aria2c('http://127.0.0.1:6800/jsonrpc', "http", "");
     var version = await aria2c.getVersion();
     print(version.toString());
-    final addUriRes = await aria2c.addUri(
-        ['http://pi.mo:5678/©️ v.0712.1955(B)/指南.md'],
-        out: '/©️ v.0712.1955(B)/指南.md');
+    final addUriRes = await aria2c.addUri([
+      'http://pi.mo:5678/©️ v.0712.1955(B)/指南.md',
+    ], {
+      'dir': '/©️ v.0712.1955(B)'
+    });
     // var globalOptions = await aria2c.getGlobalOption();
     // print(globalOptions.toString());
     // var multi = await aria2c.multicall([Method("aria2.tellStopped",[0,100])]);

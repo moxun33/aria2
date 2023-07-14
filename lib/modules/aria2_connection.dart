@@ -67,15 +67,19 @@ class Aria2Connection implements aria2_methods.Aria2Methods {
     return await _requestApi('aria2.addTorrent', [base64Torrent]);
   }
 
+  //第二个成员为对象，成员为下载参数，详情参考上方“下载参数”链接 https://aria2.github.io/manual/en/html/aria2c.html#input-file
+  /*    {
+        	//下载根目录
+            "dir":"E:/download/",
+            //目标文件名
+            "out":"test1.png",
+            //referer 用来绕开部分防盗链机制 星号表示使用url作为referer
+            "referer": "*"
+        }*/
   @override
-  Future<String> addUri(List<String> url, {String? out}) async {
-    return await _requestApi('aria2.addUri', [
-      url,
-      {
-        "out": out ?? '',
-        "check-certificate": false,
-      }
-    ]);
+  Future<String> addUri(List<String> url,
+      [Map<String, dynamic>? options]) async {
+    return await _requestApi('aria2.addUri', [url, options ?? {}]);
   }
 
   @override
