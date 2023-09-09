@@ -20,29 +20,33 @@ class Aria2Connection implements aria2_methods.Aria2Methods {
   }
 
   Future _requestApi(String method, List params) async {
-    if (secret != "") {
-      if (method != "system.multicall") {
-        params.insert(0, "token:$secret");
-      } else {
-        for (var i = 0; i < params.length; i++) {
-          params[i]["params"].insert(0, "token:$secret");
+    try {
+      if (secret != "") {
+        if (method != "system.multicall") {
+          params.insert(0, "token:$secret");
+        } else {
+          for (var i = 0; i < params.length; i++) {
+            params[i]["params"].insert(0, "token:$secret");
+          }
+          params = [params];
         }
-        params = [params];
       }
-    }
-    if (protocol == 'websocket') {
-      return await _client.sendRequest(method, params);
-    } else {
-      var res = await Dio().post(rpcUrl, data: {
-        'jsonrpc': '2.0',
-        'id': 'flutter',
-        "method": method,
-        "params": params
-      });
+      if (protocol == 'websocket') {
+        return await _client.sendRequest(method, params);
+      } else {
+        var res = await Dio().post(rpcUrl, data: {
+          'jsonrpc': '2.0',
+          'id': 'flutter',
+          "method": method,
+          "params": params
+        });
 
-      // return res.data;
-      var data = json.decode(res.data);
-      return data["result"];
+        // return res.data;
+        var data = json.decode(res.data);
+        return data["result"];
+      }
+    } catch (e) {
+      return null;
     }
   }
 
