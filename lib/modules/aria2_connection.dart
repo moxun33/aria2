@@ -138,7 +138,7 @@ class Aria2Connection implements aria2_methods.Aria2Methods {
   @override
   Future<Aria2GlobalStat> getGlobalStat() async {
     var data = await _requestApi('aria2.getGlobalStat', []);
-    return Aria2GlobalStat.fromJson(data);
+    return Aria2GlobalStat.fromJson(data ?? {});
   }
 
   @override
